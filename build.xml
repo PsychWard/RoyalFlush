@@ -21,7 +21,7 @@
 	</path>
 
 
-	<target name="all" depends="clean,deps,build,jar" description="Run the complete build process" />
+	<target name="all" depends="clean,deps,build,docs,jar" description="Run the complete build process" />
 
 
 	<target name="bootstrap" description="Bootstrap Ivy">
