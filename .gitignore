@@ -1,0 +1,26 @@
+# Build artifacts
+/bin/
+/build/
+/doc/
+*.class
+
+# Test reports
+/test-output/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Dependencies
+/lib
+
+
+# Editors
+/.project
+/.classpath
+*.swp
+*~
+
+# 1st Party Files
+/address.txt

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<project name="Royal FLush" basedir="." default="all" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="src.dir"                    value="src" />
+	<property name="doc.dir"                    value="doc" />
+	<property name="lib.dir"                    value="lib" />
+	<property name="build.dir"                  value="build" />
+	<property name="build.classes.dir"          value="${build.dir}/classes" />
+	<property name="build.jar.dir"              value="${build.dir}/jar" />
+	<property name="build.jar.name"             value="RoyalFlush" />
+	<property name="build.jar.main-class.name"  value="org.royalflush.launcher.Main" />
+
+	<property name="ant.lib.dir"    value="${user.home}/.ant/lib" />
+	<property name="ivy.jar"        value="${ant.lib.dir}/ivy.jar" />
+	<property name="ivy.version"    value="2.3.0-rc1" />
+	<property name="ivy.url"        value="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar" />
+
+
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+	<path id="classpath.test">
+		<path refid="classpath" />
+		<pathelement location="${build.classes.dir}" />
+	</path>
+
+
+	<target name="all" depends="clean,deps,build,jar,test" description="Run the complete build process" />
+
+
+	<target name="bootstrap" description="Bootstrap Ivy">
+		<mkdir dir="${ant.lib.dir}" />
+		<get src="${ivy.url}" dest="${ivy.jar}" />
+	</target>
+
+	<target name="clean" description="Clean build artifacts">
+		<delete dir="${doc.dir}" />
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="build" description="Compile the source" depends="deps">
+		<mkdir dir="${build.classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" classpathref="classpath" includeantruntime="false" debug="true" />
+	</target>
+
+	<target name="docs" description="Build the docs" depends="deps">
+		<mkdir dir="${doc.dir}" />
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}" classpathref="classpath" />
+	</target>
+
+	<target name="jar" description="Package the compiled classes" depends="build">
+		<mkdir dir="${build.jar.dir}" />
+		<jar destfile="${build.jar.dir}/${build.jar.name}.jar" basedir="${build.classes.dir}">
+			<zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+			<manifest>
+				<attribute name="Main-Class" value="${build.jar.main-class.name}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="deps" description="Download dependencies">
+		<ivy:retrieve />
+	</target>
+
+	<target name="run" description="Run the packaged jar" depends="jar">
+		<java jar="${build.jar.dir}/${build.jar.name}.jar" />
+	</target>
+
+	<target name="test" description="Run the tests" depends="build">
+		<junit printsummary="false" showoutput="false" failureproperty="junit.fail">
+			<classpath refid="classpath.test" />
+
+			<batchtest>
+				<fileset dir="${build.classes.dir}">
+					<include name="**/*Test.class" />
+				</fileset>
+
+				<formatter type="plain" usefile="false" />
+			</batchtest>
+		</junit>
+
+		<fail if="junit.fail" message="Unit tests failed!" />
+	</target>
+</project>
