@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-	<info organisation="org.royalflush" module="royalflush" />
+	<info organisation="org.psychwardgames" module="royalflush" />
 	<dependencies>
 		<dependency org="org.yaml" name="snakeyaml" rev="1.9" />
 	</dependencies>

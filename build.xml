@@ -8,7 +8,7 @@
 	<property name="build.classes.dir"          value="${build.dir}/classes" />
 	<property name="build.jar.dir"              value="${build.dir}/jar" />
 	<property name="build.jar.name"             value="RoyalFlush" />
-	<property name="build.jar.main-class.name"  value="org.royalflush.launcher.Main" />
+	<property name="build.jar.main-class.name"  value="org.psychwardgames.royalflush.launcher.Main" />
 
 	<property name="ant.lib.dir"    value="${user.home}/.ant/lib" />
 	<property name="ivy.jar"        value="${ant.lib.dir}/ivy.jar" />
