@@ -59,6 +59,6 @@
 	</target>
 
 	<target name="run" description="Run the packaged jar" depends="jar">
-		<java jar="${build.jar.dir}/${build.jar.name}.jar" />
+		<java jar="${build.jar.dir}/${build.jar.name}.jar" fork="true" />
 	</target>
 </project>
