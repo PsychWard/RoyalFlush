@@ -8,4 +8,4 @@ neersighted
 
 ## Companies & Organizations
 
-[Oracle](http://oracle.com)
+* [Oracle](http://oracle.com)
