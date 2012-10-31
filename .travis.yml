@@ -1,0 +1,19 @@
+language: java
+jdk:
+  - oraclejdk7
+  - openjdk7
+  - openjdk6
+
+install: "ant bootstrap && ant deps"
+
+
+notifications:
+  email: false
+  irc:
+    channels:
+      - "irc.epsilonirc.net#RoyalFlush"
+    template:
+      - "%{author} commited %{commit} on %{branch}: %{message} "
+      - "Diff at %{compare_url} | Build %{build_number} at %{build_url}"
+    on_success: always
+    on_failure: always

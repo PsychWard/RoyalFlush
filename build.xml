@@ -19,13 +19,9 @@
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
 	</path>
-	<path id="classpath.test">
-		<path refid="classpath" />
-		<pathelement location="${build.classes.dir}" />
-	</path>
 
 
-	<target name="all" depends="clean,deps,build,jar,test" description="Run the complete build process" />
+	<target name="all" depends="clean,deps,build,jar" description="Run the complete build process" />
 
 
 	<target name="bootstrap" description="Bootstrap Ivy">
@@ -64,21 +60,5 @@
 
 	<target name="run" description="Run the packaged jar" depends="jar">
 		<java jar="${build.jar.dir}/${build.jar.name}.jar" />
-	</target>
-
-	<target name="test" description="Run the tests" depends="build">
-		<junit printsummary="false" showoutput="false" failureproperty="junit.fail">
-			<classpath refid="classpath.test" />
-
-			<batchtest>
-				<fileset dir="${build.classes.dir}">
-					<include name="**/*Test.class" />
-				</fileset>
-
-				<formatter type="plain" usefile="false" />
-			</batchtest>
-		</junit>
-
-		<fail if="junit.fail" message="Unit tests failed!" />
 	</target>
 </project>

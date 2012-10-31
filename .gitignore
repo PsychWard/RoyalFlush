@@ -4,9 +4,6 @@
 /doc/
 *.class
 
-# Test reports
-/test-output/
-
 # Package Files #
 *.jar
 *.war
